@@ -1,10 +1,14 @@
 body:not(.controller) {
+<<<<<<< HEAD
     /*background-image: linear-gradient(#49515f, #8a929b);*/
 	background: url('detective.svg') center center no-repeat;
 	background: linear-gradient(to bottom right, #6f1414, #222222, #144b79)
+=======
+    background-image: linear-gradient(#49515f, #8a929b);
     display: flex;
     flex-direction: row;
     align-items: center;
+>>>>>>> f5e5cbe3c32d2d3e33cfb00864078f9382975ec3
 }
 
 .controller-playground {
