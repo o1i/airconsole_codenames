@@ -1,0 +1,11 @@
+.game.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center; }
+  .game.container .board {
+    flex: 1; }
+    @media all and (min-width: 800px) {
+      .game.container .board .segment {
+        font-size: 2em; } }
+
+/*# sourceMappingURL=styles.css.map */

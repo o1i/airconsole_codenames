@@ -18,6 +18,7 @@
 
     <!-- D3 -->
     <script src='https://d3js.org/d3-selection.v1.min.js'></script>
+      <link rel='stylesheet' href='styles.css'>
     
     <!-- AirConsole Framework -->
     <script type="text/javascript" 
@@ -31,6 +32,7 @@
       var canvas;
       var last = null;
       var score_el;
+      var words = [];
 
       /**
        * Sets up the communication to game pads.
@@ -51,6 +53,9 @@
           }
           checkTwoPlayers();
         };
+        
+        // Set up the board
+        
 
         airconsole.onMessage = function(device_id, data) {
           var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
@@ -248,7 +253,50 @@
   </head>
   <body onload="init()">
     <div class="game ui container">
-      
+      <div class="ui five column grid board">
+          <div class='column'>
+              <div class='ui raised center aligned blue inverted segment'>Word 
+                  1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned red inverted segment'>Word 
+                  1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned black inverted segment'>Word 
+                  1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned disabled segment'>Word 
+                  1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned segment'>Word 1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned segment'>Word 1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned segment'>Word 1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned segment'>Word 1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <div class='column'>
+              <div class='ui raised center aligned segment'>Word 1</div>
+              <!-- /.ui raised center aligned segment -->
+          </div>
+          <!-- /.column -->
+      </div>
+      <!-- /.ui five column grid -->
     </div>
     <div class='ui dimmer'>
       <div class='content'>

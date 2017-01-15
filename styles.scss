@@ -1,0 +1,16 @@
+.game.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  
+  .board {
+    flex: 1;
+    
+  @media all and (min-width: 800px) {
+    .segment {
+      font-size: 2em;
+    }
+  }
+    
+  }
+}
