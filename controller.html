@@ -48,11 +48,10 @@
            * Checks if this device is part of the active game.
            */
         airconsole.onActivePlayersChange = function (player) {
-          var div = document.getElementById("player_id");
           if (player !== undefined) {
             $('.ui.dimmer').dimmer('hide');
           } else {
-            $('.ui.dimmer .header').text('Auf weiteren Agent warten ...');
+            $('.ui.dimmer .header').text('More Agents are required ...');
             $('.ui.dimmer').dimmer('show');
           }
         };
@@ -74,22 +73,33 @@
       }
 
 
+      /**
+       * Notify the screen that a spymaster has clicked on a word to reveal it.
+       * @param datum
+       */
       function notifyOfClick(datum) {
         airconsole.message(AirConsole.SCREEN, {
           indexClicked: words.indexOf(datum)
         })
       }
 
+      /**
+       * Update the board once we gut new data.
+       * @param words_array
+       */
       function updateBoard(words_array) {
         var displayed_words =
               d3.select(".board")
                 .selectAll(".column")
                 .data(words_array);
 
+        var listener = 'ontouchstart' in document.documentElement ?
+          'touchstart' : 'click';
+
         displayed_words.enter()
           .append('div')
           .attr("class", "column")
-          .on('click', function (d) {
+          .on(listener, function (d) {
             notifyOfClick(d);
           })
           .append("div")
@@ -120,14 +130,24 @@
 
 </head>
 <body onload='init()'>
-<div class='ui container game'>
-    <div class='ui five column grid board'>
+<div class='ui vertical inverted segment'>
+    <div class='ui container game'>
+        <div class='ui five column grid board'>
 
+        </div>
+        <!-- /.ui five column grid board -->
     </div>
-    <!-- /.ui five column grid board -->
-</div>
-<!-- /.ui container game -->
+    <!-- /.ui container game --></div>
+<!-- /.ui vertical segment -->
 
+<div class="ui vertical inverted secondary segment">
+    <div class="ui container">
+        <button class="ui button">Restart Game</button>
+        <!-- /.ui button -->
+    </div>
+    <!-- /.ui container -->
+</div>
+<!-- /.ui vertical inverted secondary segment -->
 
 <!-- Friendly Messages to the player -->
 <div class='ui dimmer'>
