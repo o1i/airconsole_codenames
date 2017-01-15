@@ -1,9 +1,29 @@
 body:not(.controller) {
     background-image: linear-gradient(#49515f, #8a929b);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.controller-playground {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.controller-playground .vertical.segment.player {
+    flex: 2 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.controller-playground .vertical.secondary.segment {
+    flex: 0 1 0;
 }
 
 .game.container {
-    min-height: 100vh;
     display: flex;
     align-items: center;
 }
