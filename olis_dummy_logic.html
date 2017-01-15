@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://d3js.org/d3-collection.v1.min.js"></script>
+		<script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+		<script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+		<script src="https://d3js.org/d3-request.v1.min.js"></script>
+		<script src="https://d3js.org/d3-array.v1.min.js"></script>
+		<script>
+			var color_vec;
+			var pressed_vec;
+			color_vec = ["blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", 
+				"red", "red", "red", "red", "red", "red", "red", "red", 
+				"black",
+				"grey", "grey", "grey", "grey", "grey", "grey", "grey"];
+				
+			pressed_vec = [false, false, false, false, false, false, false, false, false, false, 
+				false, false, false, false, false, false, false, false, false, false, 
+				false, false, false, false, false];
+				
+			function take_array_sample(array, num){
+			
+				return d3.shuffle(3.zip(d3.shuffle(array).slice(0, num).map(function(d){return d.Word}), color_vec, pressed_vec));
+			}
+			
+			d3.csv("words.csv", function(error, data) {
+				if (error) throw error;
+				word_array = data;
+				console.log(take_array_sample(word_array, 3));
+				});
+				
+			
+		</script>
+	</head>
+</html>
