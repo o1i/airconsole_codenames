@@ -47,10 +47,10 @@
           /*
            * Checks if this device is part of the active game.
            */
-        airconsole.onActivePlayersChange = function (player) {
-          if (player !== undefined) {
+        airconsole.onActivePlayersChange = function (player_number) {
+          if (player_number !== undefined) {
             $('.ui.dimmer').dimmer('hide');
-            $('.player.segment').addClass(['first-player', 'second-player'][player]);
+            $('.player.segment').addClass(['first-player', 'second-player'][player_number]);
           } else {
             $('.ui.dimmer .header').text('More Agents are required ...');
             $('.ui.dimmer').dimmer('show');

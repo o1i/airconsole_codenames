@@ -1,5 +1,7 @@
 body:not(.controller) {
-    background-image: linear-gradient(#49515f, #8a929b);
+    /*background-image: linear-gradient(#49515f, #8a929b);*/
+	background: url('detective.svg') center center no-repeat;
+	background: linear-gradient(to bottom right, #6f1414, #222222, #144b79)
 }
 
 .game.container {
@@ -25,10 +27,12 @@ body:not(.controller) {
     padding-right: 0.2rem;
 }
 
+
+
 .ui.segment.player.first-player {
-    background-image: linear-gradient(black, #6f1414) !important;
+    background-image: radial-gradient(#6f1414, black) !important;
 }
 
 .ui.segment.player.second-player {
-    background-image: linear-gradient(black, #144b79) !important;
+    background-image: radial-gradient(#144b79, black) !important;
 }
