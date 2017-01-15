@@ -1,103 +1,113 @@
 <html>
 <head>
-  <script type="text/javascript"
-          src="https://www.airconsole.com/api/airconsole-1.3.0.js"></script>
-  <script type="text/javascript">
-    navigator.vibrate = (navigator.vibrate ||
-                         navigator.webkitVibrate ||
-                         navigator.mozVibrate ||
-                         navigator.msVibrate);
+    <!-- jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+            integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8='
+            crossorigin='anonymous'></script>
 
-    var airconsole;
-    /**
-     * Sets up the communication to the screen.
-     */
-    function init() {
-      airconsole = new AirConsole({"orientation": "portrait"});
+    <!-- Semantic UI -->
+    <link rel='stylesheet'
+          href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css'
+          integrity='sha256-wT6CFc7EKRuf7uyVfi+MQNHUzojuHN2pSw0YWFt2K5E='
+          crossorigin='anonymous'/>
 
-      /*
-       * Checks if this device is part of the active game.
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js'
+            integrity='sha256-flVaeawsBV96vCHiLmXn03IRJym7+ZfcLVvUWONCas8='
+            crossorigin='anonymous'></script>
+    <!-- /Semantic UI -->
+
+    <!-- D3 -->
+    <script src='https://d3js.org/d3-selection.v1.min.js'></script>
+    <link rel='stylesheet' href='styles.css'>
+
+    <!-- AirConsole Framework -->
+    <script type='text/javascript'
+            src='https://www.airconsole.com/api/airconsole-1.6.0.js'></script>
+
+    <script type='text/javascript'>
+      navigator.vibrate = (navigator.vibrate ||
+      navigator.webkitVibrate ||
+      navigator.mozVibrate ||
+      navigator.msVibrate);
+
+      var airconsole;
+      var words = [];
+      /**
+       * Sets up the communication to the screen.
        */
-      airconsole.onActivePlayersChange = function(player) {
-        var div = document.getElementById("player_id");
-        if (player !== undefined) {
-          div.innerHTML =  (["Left Player", "Right Player"][player]);
-        } else {
-          div.innerHTML = "It's a 2 player game!";
-        }
-      };
+      function init() {
+        airconsole =
+          new AirConsole({"orientation": AirConsole.ORIENTATION_LANDSCAPE});
 
-      /*
-       * Makes the device vibrate if the screen says so.
+          /*
+           * Checks if this device is part of the active game.
+           */
+        airconsole.onActivePlayersChange = function (player) {
+          var div = document.getElementById("player_id");
+          if (player !== undefined) {
+            $('.ui.dimmer').dimmer('hide');
+          } else {
+            $('.ui.dimmer .header').text('Auf weiteren Agent warten ...');
+            $('.ui.dimmer').dimmer('show');
+          }
+        };
+
+          /*
+           * Makes the device vibrate if the screen says so.
+           */
+        airconsole.onMessage = function (from, data) {
+          if (from == AirConsole.SCREEN && data.vibrate) {
+            navigator.vibrate(data.vibrate);
+            console.log("Vibrating: " + data.vibrate);
+          }
+
+          if (from === AirConsole.SCREEN && data.updatedBoard) {
+            words = data.updatedBoard;
+            updateBoard(data.updatedBoard)
+          }
+        };
+      }
+
+      
+      function notifyOfClick(datum) {
+        airconsole.message(AirConsole.SCREEN, {
+          indexClicked: words.indexOf(datum)
+        })
+      }
+
+      function updateBoard(data) {
+
+
+      }
+
+      /**
+       * Tells the screen to move the paddle of this player.
+       * @param amount
        */
-      airconsole.onMessage = function(from, data) {
-        if (from == AirConsole.SCREEN && data.vibrate) {
-          navigator.vibrate(data.vibrate);
-          console.log("Vibrating: " + data.vibrate);
-        }
-      };
-    }
+      function move(amount) {
+        airconsole.message(AirConsole.SCREEN, {move: amount})
+      }
 
-    /**
-     * Tells the screen to move the paddle of this player.
-     * @param amount
-     */
-    function move(amount) {
-      airconsole.message(AirConsole.SCREEN, {move: amount})
-    }
+    </script>
 
-  </script>
-  <style type="text/css">
-    @font-face {
-      font-family: 'PressStart2P';
-      src: url('PressStart2P.ttf') format('truetype');
-      text-align: center;
-    }
-
-    html, body {
-      height: 100%;
-      margin: 0px;
-      font-family: 'PressStart2P', sans-serif;
-      color: white;
-      text-align: center;
-      background-color: black;
-    }
-
-    .button {
-      display: inline-block;
-      height: 45%;
-      width: 98%;
-      background-color: #222;
-      position: relative;
-    }
-
-    .button_label {
-      position: absolute;
-      left: 0px;
-      width: 100%;
-      top: 50%;
-      margin-top: -6px;
-    }
-
-    #player_id {
-      position: absolute;
-      top: 50%;
-      left: 0%;
-      width: 100%;
-      margin-top: -8px;
-      color: #777;
-    }
-  </style>
 </head>
-<body onload="init()">
-<div style="height: 1%"></div>
-<div class=button ontouchstart="move(-50)" ontouchend="move(0)" onmousedown="move(-50)" onmouseup="move(0)">
-  <div class="button_label">UP</div>
+<body onload='init()'>
+<div class='ui container game'>
+    <div class='ui five column grid board'>
+
+    </div>
+    <!-- /.ui five column grid board -->
 </div>
-<div style="height: 8%"></div>
-<div class=button ontouchstart="move(50)" ontouchend="move(0)" onmousedown="move(50)" onmouseup="move(0)">
-  <div class="button_label">DOWN</div>
+<!-- /.ui container game -->
+
+
+<!-- Friendly Messages to the player -->
+<div class='ui dimmer'>
+    <div class='content'>
+        <div class='center'>
+            <h2 class='ui inverted header'></h2>
+        </div>
+    </div>
 </div>
-<div id="player_id">It's a 2 player game</div>
 </body>
 </html>
