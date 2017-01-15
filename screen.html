@@ -86,7 +86,7 @@
 			    .attr("class", "column")
 			  .append("div")
 			    .text(function(d){return d[0]})
-				.attr("class", "ui raised center aligned segment ")
+				.attr("class", "ui raised center aligned segment")
 			  .merge(displayed_words)
 			  .select(".segment")
 			  .data(words_array)
@@ -94,7 +94,7 @@
 						if(d[2]){
 							return "ui raised center aligned segment inverted ".concat(d[1])
 						} else {
-							return "ui raised center aligned segment inverted"
+							return "ui raised center aligned segment"
 						}
 					});
 		}

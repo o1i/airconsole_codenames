@@ -18,6 +18,11 @@
 
     <!-- D3 -->
     <script src='https://d3js.org/d3-selection.v1.min.js'></script>
+    <script src='https://d3js.org/d3-collection.v1.min.js'></script>
+    <script src='https://d3js.org/d3-dispatch.v1.min.js'></script>
+    <script src='https://d3js.org/d3-dsv.v1.min.js'></script>
+    <script src='https://d3js.org/d3-request.v1.min.js'></script>
+    <script src='https://d3js.org/d3-array.v1.min.js'></script>
     <link rel='stylesheet' href='styles.css'>
 
     <!-- AirConsole Framework -->
@@ -68,15 +73,42 @@
         };
       }
 
-      
+
       function notifyOfClick(datum) {
         airconsole.message(AirConsole.SCREEN, {
           indexClicked: words.indexOf(datum)
         })
       }
 
-      function updateBoard(data) {
+      function updateBoard(words_array) {
+        var displayed_words =
+              d3.select(".board")
+                .selectAll(".column")
+                .data(words_array);
 
+        displayed_words.enter()
+          .append('div')
+          .attr("class", "column")
+          .on('click', function () {
+            console.log(this.datum);
+          })
+          .append("div")
+          .text(function (d) {
+            return d[0]
+          })
+          .attr("class", "ui raised center aligned segment")
+
+          .merge(displayed_words)
+          .select(".segment")
+          .data(words_array)
+          .attr("class", function (d) {
+            if (d[2]) {
+              return
+              "ui raised center aligned segment inverted disabled ".concat(d[1])
+            } else {
+              return "ui raised center aligned segment inverted ".concat(d[1])
+            }
+          });
 
       }
 
