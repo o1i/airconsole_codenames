@@ -148,11 +148,11 @@
 			sendNewDataToSpymasters(words);
             $('.ui.dimmer').dimmer('hide');
           } else if (connected_controllers.length == 1) {
-            $('.ui.dimmer .header').text('You need to recruit an additional player');
+            $('.ui.dimmer .header').text('You must conscribe an additional player');
             $('.ui.dimmer').dimmer('show');
           } else if (connected_controllers.length == 0) {
             $('.ui.dimmer .header')
-              .text('Zwei weitere Spieler werden benötigt.');
+              .text('You must conscribe additional players');
             $('.ui.dimmer').dimmer('show');
           }
         }
