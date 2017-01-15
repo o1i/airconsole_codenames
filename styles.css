@@ -1,17 +1,34 @@
-.game.container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center; }
-  .game.container .board {
-    flex: 1; }
-    @media all and (min-width: 800px) {
-      .game.container .board .segment {
-        font-size: 2em; } }
+body:not(.controller) {
+    background-image: linear-gradient(#49515f, #8a929b);
+}
 
-.controller .game.container .ui.grid .column{
- padding-top: 0.2rem;
- padding-bottom: 0.2rem;
- padding-left: 0.2rem;
- padding-right: 0.2rem;
-}	
-/*# sourceMappingURL=styles.css.map */
+.game.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.game.container .board {
+    flex: 1;
+}
+
+@media all and (min-width: 800px) {
+    .game.container .board .segment {
+        font-size: 2em;
+    }
+}
+
+.controller .game.container .ui.grid .column {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+
+.ui.segment.player.first-player {
+    background-image: linear-gradient(black, #6f1414) !important;
+}
+
+.ui.segment.player.second-player {
+    background-image: linear-gradient(black, #144b79) !important;
+}

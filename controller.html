@@ -50,6 +50,7 @@
         airconsole.onActivePlayersChange = function (player) {
           if (player !== undefined) {
             $('.ui.dimmer').dimmer('hide');
+            $('.player.segment').addClass(['first-player', 'second-player'][player]);
           } else {
             $('.ui.dimmer .header').text('More Agents are required ...');
             $('.ui.dimmer').dimmer('show');
@@ -130,7 +131,7 @@
 
 </head>
 <body onload='init()' class='controller'>
-<div class='ui vertical inverted segment'>
+<div class='ui vertical inverted segment player'>
     <div class='ui container game'>
         <div class='ui NOSPACE_CLASS five column grid board'>
 
