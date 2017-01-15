@@ -1,7 +1,7 @@
 body:not(.controller) {
     /*background-image: linear-gradient(#49515f, #8a929b);*/
 	background: url('detective.svg') center center no-repeat;
-	background: linear-gradient(to bottom right, #6f1414, #222222, #144b79)
+	background: linear-gradient(to bottom right, #6f1414, #222222, #144b79);
     display: flex;
     flex-direction: row;
     align-items: center;
