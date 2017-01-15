@@ -98,31 +98,22 @@
           })
           .attr("class", function (d) {
             if (d[2]) {
-              return "ui raised center aligned small segment inverted disabled ".concat(d[1])
+              return "ui fluid button disabled ".concat(d[1])
             } else {
-              return "ui raised center aligned small segment inverted ".concat(d[1])
+              return "ui fluid button ".concat(d[1])
             }
-		  })
-
+          })
           .merge(displayed_words)
-          .select(".segment")
+          .select(".button")
           .data(words_array)
           .attr("class", function (d) {
             if (d[2]) {
-              return "ui raised center aligned small segment inverted disabled ".concat(d[1])
+              return "ui fluid button disabled ".concat(d[1])
             } else {
-              return "ui raised center aligned small segment inverted ".concat(d[1])
+              return "ui fluid button ".concat(d[1])
             }
           });
 
-      }
-
-      /**
-       * Tells the screen to move the paddle of this player.
-       * @param amount
-       */
-      function move(amount) {
-        airconsole.message(AirConsole.SCREEN, {move: amount})
       }
 
     </script>
