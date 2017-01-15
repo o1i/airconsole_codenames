@@ -122,9 +122,20 @@
             } else {
               return "ui fluid button ".concat(d[1])
             }
-          });
+          })
+		  .text(function(d){return d[0]})
+		  ;
 
       }
+	  
+		/*
+		* Sends a message to restart the game
+		*/
+		function restart_action(){
+			airconsole.message(AirConsole.SCREEN, {
+			  restart: true
+			})
+		}
 
     </script>
 
@@ -142,7 +153,7 @@
 
 <div class="ui vertical inverted secondary segment">
     <div class="ui container">
-        <button class="ui button">Restart Game</button>
+        <button class="ui button" onclick="restart_action()">Restart Game</button>
         <!-- /.ui button -->
     </div>
     <!-- /.ui container -->

@@ -72,10 +72,12 @@
 			false, false, false, false, false];
 			
 		function take_array_sample(array, num){
+		
 			return d3.shuffle(d3.zip(d3.shuffle(array).slice(0, num).map(function(d){return d.Word}), color_vec, pressed_vec));
 		}
 		
 		function make_board(words_array){
+		console.log("shuffling stuff")
 		var displayed_words = 
 			d3.select(".board")
 			  .selectAll(".column")
@@ -96,18 +98,26 @@
 						} else {
 							return "ui raised center aligned segment"
 						}
-					});
+					})
+				  .text(function(d){return d[0]})
+					;
 		}
 		
+		function setup_board(){
         d3.csv("words.csv", function(error, data) {
 			if (error) throw error;
 			word_array = data;
 			words = (take_array_sample(word_array, 25));
+			console.log(words.slice(0, 5));
 			make_board(words);
 			sendNewDataToSpymasters(words);
-		});
+		});}
 		
+		setup_board();
 		
+		/**
+		* Updates the Board if something got clicked
+		*/
 		
         airconsole.onMessage = function(device_id, data) {
           var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
@@ -115,9 +125,12 @@
             words[data.indexClicked][2] = true;
             sendNewDataToSpymasters(words);
             make_board(words);
-          }
+          } else if (player != undefined && data.restart !== undefined){
+			setup_board();
+		  }
         };
 
+		
       }
 
       /**
@@ -159,24 +172,9 @@
        * screens.
        */
       function sendNewDataToSpymasters(data) {
-        console.log("sending message")
 		airconsole.broadcast({updatedBoard: data});
-		console.log("message sent")
       }
-
-      /**
-       * Shows who scored and updates the score afterwards.
-       */
-      function displayScore(player) {
-        var name = airconsole.getNickname(
-            airconsole.convertPlayerNumberToDeviceId(player));
-        score_el.innerHTML = "<div style='font-size: 20px;margin-top:16px'>" +
-                             name + " scored!</div>";
-        window.setTimeout(function() {
-          score_el.innerHTML = score.join(":");
-        }, 1000);
-      }
-
+	  
       /**
        * body.onload function.
        */
