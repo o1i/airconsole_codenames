@@ -1,6 +1,28 @@
 <html>
   <head>
-    <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.3.0.js"></script>
+    <!-- jQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+            integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8='
+            crossorigin='anonymous'></script>
+
+    <!-- Semantic UI -->
+    <link rel='stylesheet'
+          href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css'
+          integrity='sha256-wT6CFc7EKRuf7uyVfi+MQNHUzojuHN2pSw0YWFt2K5E='
+          crossorigin='anonymous'/>
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js'
+            integrity='sha256-flVaeawsBV96vCHiLmXn03IRJym7+ZfcLVvUWONCas8='
+            crossorigin='anonymous'></script>
+    <!-- /Semantic UI -->
+
+    <!-- D3 -->
+    <script src='https://d3js.org/d3-selection.v1.min.js'></script>
+    
+    <!-- AirConsole Framework -->
+    <script type="text/javascript" 
+            src="https://www.airconsole.com/api/airconsole-1.6.0.js"></script>
+    
     <script type="text/javascript">
       var airconsole;
       var paddles;
@@ -51,16 +73,14 @@
             // Enough controller devices connected to start the game.
             // Setting the first 2 controllers to active players.
             airconsole.setActivePlayers(2);
-            resetBall(50, 0);
-            score = [0, 0];
-            score_el.innerHTML = score.join(":");
-            document.getElementById("wait").innerHTML = "";
+            $('.ui.dimmer').dimmer('hide');
           } else if (connected_controllers.length == 1) {
-            document.getElementById("wait").innerHTML = "Need 1 more player!";
-            resetBall(0, 0);
+            $('.ui.dimmer .header').text('Ein weiterer Spieler wird benötigt.');
+            $('.ui.dimmer').dimmer('show');
           } else if (connected_controllers.length == 0) {
-            document.getElementById("wait").innerHTML = "Need 2 more players!";
-            resetBall(0, 0);
+            $('.ui.dimmer .header')
+              .text('Zwei weitere Spieler werden benötigt.');
+            $('.ui.dimmer').dimmer('show');
           }
         }
       }
@@ -94,21 +114,7 @@
         setupConsole();
 
         // Setting up the game. Nothing AirConsole specific.
-
-        canvas = document.getElementById("canvas");
-        score_el = document.getElementById("score");
-        paddles = [
-          { pos: {x: 10, y: 50}, move: {x: 0, y: 0 },
-            el: document.getElementById("player_1") },
-          { pos: {x: 190, y: 53}, move: {x: 0, y: 0 },
-            el: document.getElementById("player_2") } ];
-        ball = { pos: { x: 100, y: 50 }, move: {x: 0, y: 0 },
-          el: document.getElementById("ball") };
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-        window.onresize = (clearCanvas);
-        last = new Date().getTime();
-        loop();
+        
       }
 
       /**
@@ -238,61 +244,22 @@
         ctx.closePath();
       }
     </script>
-    <style type="text/css">
-      @font-face {
-        font-family: 'PressStart2P';
-        src: url('PressStart2P.ttf') format('truetype');
-      }
 
-      html, body {
-        height: 100%;
-        margin: 0px;
-        font-family: 'PressStart2P', sans-serif;
-        color: white;
-        text-align: center;
-      }
-
-      .game {
-        background-color: black;
-        top: 50%;
-        margin-top: -25%;
-        padding-bottom: 50%;
-        overflow: hidden;
-        position: relative;
-      }
-
-      #canvas {
-        position: absolute;
-        top: 0px;
-        left:0px;
-        width: 100%;
-        height: 100%;
-      }
-
-      #score {
-        position: absolute;
-        top: 10%;
-        left: 0px;
-        width: 100%;
-        font-size: 48px;
-      }
-
-      #wait {
-        position: absolute;
-        top: 10%;
-        margin-top: 80px;
-        left: 0px;
-        width: 100%;
-        font-size: 24px;
-        color: lime;
-      }
-    </style>
   </head>
   <body onload="init()">
-    <div class="game">
-      <canvas id="canvas"></canvas>
-      <div id="score">0:0</div>
-      <div id="wait"></div>
+    <div class="game ui container">
+      
     </div>
+    <div class='ui dimmer'>
+      <div class='content'>
+        <div class='center'>
+          <h2 class='ui inverted header'></h2>
+          <!-- /.ui inverted header -->
+        </div>
+        <!-- /.center -->
+      </div>
+      <!-- /.content -->
+    </div>
+    <!-- /.ui basic modal -->
   </body>
 </html>
