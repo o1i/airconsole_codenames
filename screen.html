@@ -56,11 +56,13 @@
         
         // Set up the board
         
-
+        
         airconsole.onMessage = function(device_id, data) {
           var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
-          if (player != undefined && data.move !== undefined) {
-            paddles[player].move.y = data.move;
+          if (player != undefined && data.indexClicked !== undefined) {
+            words[data.indexClicked][2] = true;
+            sendNewDataToSpymasters(words);
+            //TODO Oli fügt hier die Update-Funktion ein. Oder make_word().
           }
         };
 
@@ -97,6 +99,14 @@
         airconsole.message(
             airconsole.convertPlayerNumberToDeviceId(player),
             { vibrate: 1000 })
+      }
+      
+      /**
+       * Send the updated board data to all devices for them to update their 
+       * screens.
+       */
+      function sendNewDataToSpymasters(data) {
+        airconsole.broadcast({updatedBoard: data});
       }
 
       /**
@@ -254,8 +264,9 @@
   <body onload="init()">
     <div class="game ui container">
       <div class="ui five column grid board">
-          <div class='column'>
-              <div class='ui raised center aligned blue inverted segment'>Word 
+          <div class='column word'>
+              <div 
+                      class='ui raised center aligned blue inverted segment'>Word 
                   1</div>
               <!-- /.ui raised center aligned segment -->
           </div>
