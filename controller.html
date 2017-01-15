@@ -66,7 +66,8 @@
             console.log("Vibrating: " + data.vibrate);
           }
 
-          if (from === AirConsole.SCREEN && data.updatedBoard) {
+          if (from == AirConsole.SCREEN && data.updatedBoard) {
+			console.log("message received")
             words = data.updatedBoard;
             updateBoard(data.updatedBoard)
           }
@@ -89,24 +90,29 @@
         displayed_words.enter()
           .append('div')
           .attr("class", "column")
-          .on('click', function () {
-            console.log(this.datum);
+          .on('click', function (d) {
+            notifyOfClick(d);
           })
           .append("div")
           .text(function (d) {
             return d[0]
           })
-          .attr("class", "ui raised center aligned segment")
+          .attr("class", function (d) {
+            if (d[2]) {
+              return "ui raised center aligned small segment inverted disabled ".concat(d[1])
+            } else {
+              return "ui raised center aligned small segment inverted ".concat(d[1])
+            }
+		  })
 
           .merge(displayed_words)
           .select(".segment")
           .data(words_array)
           .attr("class", function (d) {
             if (d[2]) {
-              return
-              "ui raised center aligned segment inverted disabled ".concat(d[1])
+              return "ui raised center aligned small segment inverted disabled ".concat(d[1])
             } else {
-              return "ui raised center aligned segment inverted ".concat(d[1])
+              return "ui raised center aligned small segment inverted ".concat(d[1])
             }
           });
 
