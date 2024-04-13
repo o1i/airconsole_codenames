@@ -6,7 +6,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="PHP Runtime" type="php">
+      <library name="PHP Runtime">
         <CLASSES>
           <root url="jar://$APPLICATION_PLUGINS_DIR$/php/lib/php.jar!/stubs/standard" />
         </CLASSES>
@@ -19,5 +19,8 @@
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="airconsole-1.6.0" level="application" />
     <orderEntry type="library" name="d3-selection.v1" level="application" />
+    <orderEntry type="library" name="R User Library" level="project" />
+    <orderEntry type="library" name="R Skeletons" level="application" />
+    <orderEntry type="library" name="airconsole-1.7.0" level="application" />
   </component>
 </module>
